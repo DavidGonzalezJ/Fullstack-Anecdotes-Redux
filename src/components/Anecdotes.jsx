@@ -1,10 +1,16 @@
+import PropTypes from 'prop-types'
 import { useSelector, useDispatch } from "react-redux"
 import { vote } from "../reducers/anecdoteReducer"
 
 //Button component
-const Button = ({text,handler}) => <button onClick={handler}>{text}</button>
+const Button = ({ text, handler }) => <button onClick={handler}>{text}</button>
 
-const Anecdote = ({anecdote, handleClick}) => {
+Button.propTypes = {
+  text: PropTypes.string.isRequired,
+  handler: PropTypes.func.isRequired
+} 
+
+const Anecdote = ({ anecdote, handleClick }) => {
   return(
     <li>
       {anecdote.content} <br />
@@ -13,7 +19,12 @@ const Anecdote = ({anecdote, handleClick}) => {
   )
 }
 
-const Anecdotes = () => {
+Anecdote.propTypes = {
+  anecdote: PropTypes.object.isRequired,
+  handleClick: PropTypes.func.isRequired
+} 
+
+const AnecdoteList = () => {
     const dispatch = useDispatch()
     const list = useSelector(state => state)
     list.sort(( a, b ) => b.votes - a.votes)
@@ -32,4 +43,4 @@ const Anecdotes = () => {
   )
 }
 
-export default Anecdotes
+export default AnecdoteList
