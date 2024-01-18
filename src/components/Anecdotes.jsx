@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import Filter from './Filter'
 import { useSelector, useDispatch } from "react-redux"
 import { vote } from "../reducers/anecdoteReducer"
 
@@ -26,7 +27,10 @@ Anecdote.propTypes = {
 
 const AnecdoteList = () => {
     const dispatch = useDispatch()
-    const list = useSelector(state => state)
+    const list = useSelector( 
+      state =>  state.anecdotes.filter(anecdote =>
+        anecdote.content.includes(state.filter))
+    )
     list.sort(( a, b ) => b.votes - a.votes)
 
     const upvote = (id) => {
@@ -34,12 +38,16 @@ const AnecdoteList = () => {
     }
 
   return (
-    <ul>
-      { list.map(a => <Anecdote
-      anecdote={a}
-      key={a.id}
-      handleClick={ () => upvote(a.id) }/> )}
-    </ul>
+    <>
+      <h1>Anecdotes</h1>
+      <Filter/>
+      <ul>
+        { list.map(a => <Anecdote
+        anecdote={a}
+        key={a.id}
+        handleClick={ () => upvote(a.id) }/> )}
+      </ul>
+    </>
   )
 }
 
