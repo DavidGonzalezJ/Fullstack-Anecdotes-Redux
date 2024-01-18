@@ -1,6 +1,7 @@
 //import { useState } from 'react'
-import { useDispatch } from 'react-redux'
 import Anecdotes from './components/Anecdotes'
+import AnecdoteForm from './components/AnecdoteForm'
+import { useDispatch } from 'react-redux'
 import { initAnecdotes } from './reducers/anecdoteReducer'
 
 //Aux method for getting a random int
@@ -35,6 +36,7 @@ const App = () => {
     <>
       <div>
         <h1>Anecdotes</h1>
+        <AnecdoteForm/>
         <Anecdotes/>
       </div>
     </>
