@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import Filter from './Filter'
 import { useSelector, useDispatch } from "react-redux"
-import { vote} from "../reducers/anecdoteReducer"
-import { setNotification, hideNotification } from '../reducers/notificationReducer'
+import { upvote } from "../reducers/anecdoteReducer"
+import { setNotification } from '../reducers/notificationReducer'
 
 //Button component
 const Button = ({ text, handler }) => <button onClick={handler}>{text}</button>
@@ -35,11 +35,10 @@ const AnecdoteList = () => {
     )
     list.sort(( a, b ) => b.votes - a.votes)
 
-    const upvote = (id) => {
+    const voteHandler = (id) => {
         const content = list.find(a => a.id === id).content
-        dispatch(vote(id))
-        dispatch(setNotification(`You voted '${content}'`))
-        setTimeout(() => dispatch(hideNotification()), 5000)
+        dispatch(upvote(id))
+        dispatch(setNotification(`You voted '${content}'`, 3))
     }
 
   return (
@@ -49,7 +48,7 @@ const AnecdoteList = () => {
         { list.map(a => <Anecdote
         anecdote={a}
         key={a.id}
-        handleClick={ () => upvote(a.id) }/> )}
+        handleClick={ () => voteHandler(a.id) }/> )}
       </ul>
     </>
   )

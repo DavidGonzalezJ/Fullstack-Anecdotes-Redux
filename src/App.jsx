@@ -7,7 +7,7 @@ import { useEffect } from 'react'
 
 const App = () => {
   const dispatch = useDispatch()
-  useEffect(() => { dispatch(initAnecdotes()) }, [])
+  useEffect(() => { dispatch(initAnecdotes())}, [])
   
   return (
     <div>
